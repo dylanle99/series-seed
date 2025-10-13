@@ -181,7 +181,7 @@ const Preloader_001 = () => {
         <h1 className="text-center text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em]">
           series seed <br /> Made©2025
         </h1>
-        <div className="h-25 flex w-full items-center justify-between">
+        <div className="h-25 flex w-full items-center justify-center md:justify-between gap-4 md:gap-0">
           <div>
             <SeriesSeedLogo className="w-18 h-10" />
           </div>

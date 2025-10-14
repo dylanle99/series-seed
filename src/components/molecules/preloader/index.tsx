@@ -200,7 +200,7 @@ const Preloader_001 = () => {
           muted
           playsInline
         >
-          <source src="/preloader/video-bg-2.mp4" type="video/mp4" />
+          <source src="/preloader/video-bg.mp4" type="video/mp4" />
         </video>
       </div>
     </div>

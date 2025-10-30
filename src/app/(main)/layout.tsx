@@ -3,9 +3,8 @@
 import Preloader from "@/components/molecules/preloader";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Menu from "@/components/molecules/menu";
 
-export default function Home() {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   const [showPreloader, setShowPreloader] = useState(true);
 
   useEffect(() => {
@@ -30,9 +29,7 @@ export default function Home() {
           </motion.div>
         ) : (
           <motion.div className="size-full" key="main">
-            <section className="relative h-full bg-black">
-              <Menu />
-            </section>
+            {children}
           </motion.div>
         )}
       </AnimatePresence>

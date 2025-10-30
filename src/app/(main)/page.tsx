@@ -89,9 +89,24 @@ function MainPageContent() {
     <div className="w-full">
       <section className="relative w-full">
         <div className="pointer-events-none sticky top-1/2 z-20 -translate-y-1/2 text-center text-white mix-blend-exclusion">
-          <h2 className="text-[9vw] font-semibold tracking-tighter text-brand-orange underline">
-            Series Seed
-          </h2>
+          <div className="relative inline-block space-y-1">
+            <motion.h2
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 2.9, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[7vw] font-semibold tracking-tighter text-brand-orange leading-none"
+            >
+              Series Seed
+            </motion.h2>
+            <motion.span
+              className="absolute left-1/2 -translate-x-1/2 -bottom-2 h-[0.3em] w-full bg-brand-orange rounded-full"
+              initial={{ scaleX: 0.2, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ delay: 1.1, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "center" }}
+              aria-hidden="true"
+            />
+          </div>
         </div>
 
         {/* Team Grid */}

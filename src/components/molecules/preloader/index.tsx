@@ -3,7 +3,11 @@
 import React from "react";
 import Logo from "../logo";
 
-export default function Preloader() {
+type PreloaderProps = {
+  onFinished?: () => void;
+};
+
+export default function Preloader({ onFinished }: PreloaderProps) {
   return (
     <main className="h-full w-screen bg-black">
       <div className="flex h-screen w-full flex-col items-center justify-center text-brand-orange">
@@ -17,12 +21,15 @@ export default function Preloader() {
               Powered by <br /> Series Seed
             </h3>
           </div>
-          <h1 className="text-center text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.06em]">
-            Nurture leaders of tomorrow.
-          </h1>
         </div>
         <div className="absolute inset-0 z-20">
-          <video className="h-full w-full object-cover" autoPlay muted playsInline>
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            playsInline
+            onEnded={onFinished}
+          >
             <source src="/preloader/video-bg.mp4" type="video/mp4" />
           </video>
         </div>

@@ -46,7 +46,7 @@ export default function Menu() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-sm font-bold uppercase text-brand-orange"
+            className="text-sm font-bold uppercase text-white"
           >
             {isOpen ? "Close" : "Menu"}
           </button>
@@ -54,7 +54,7 @@ export default function Menu() {
 
         {isOpen && (
           <div className="flex flex-col gap-4 flex-1">
-            <ul className="flex w-full flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#121212]/80 px-7 py-5 text-brand-orange backdrop-blur-sm">
+            <ul className="flex w-full flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[#121212]/80 px-7 py-5 text-white backdrop-blur-sm">
               {MENU_ITEMS.map((item, index) => (
                 <li
                   className="relative flex cursor-pointer flex-col items-center overflow-hidden"

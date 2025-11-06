@@ -42,6 +42,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-brand-orange: #ff4f00;
+  --color-brand-background: #1a1a1a;
+  --color-brand-text: #6D6C6E;
 }
 
 :root {

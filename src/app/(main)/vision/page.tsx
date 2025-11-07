@@ -1,6 +1,5 @@
-import { Quote } from "lucide-react";
 import Image from "next/image";
-import Footer from "@/components/molecules/footer";
+import { Skiper70, TextBoxReveal } from "@/components/atomic/text-box-reveal";
 
 export default function VisionPage() {
   return (
@@ -37,24 +36,23 @@ export default function VisionPage() {
             <div />
           </div>
 
-          <div className="mx-auto">
-            <div className="text-lg gap-8 text-brand-orange">
-              <div>
-                <p className="text-2xl font-medium tracking-tight lg:text-3xl">
-                  At Series Seed, we curate a private mentorship circle of entrepreneurs, operators,
-                  and experts from America's backbone industries, designed to guide the next
-                  generation of builders. From ports to clinics, farms to labs, factory floors to
-                  control rooms, our members are united by the courage to tackle hard problems that
-                  move the real economy forward.
-                </p>
-              </div>
-            </div>
+          <div className="text-lg gap-8 text-brand-orange">
+            <TextBoxReveal
+              highlight="distributed"
+              highlightTextClass="!text-orange-500"
+              highlightBgClass="!bg-orange-500"
+              className="font-old-school-grotesk"
+            >
+              At Series Seed, we curate a private mentorship circle of entrepreneurs, operators, and
+              experts from America's backbone industries, designed to guide the next generation of
+              builders. From ports to clinics, farms to labs, factory floors to control rooms, our
+              members are united by the courage to tackle hard problems that move the real economy
+              forward.
+            </TextBoxReveal>
+            <div>{/* <p className="text-2xl font-medium tracking-tight lg:text-3xl"></p> */}</div>
           </div>
         </div>
       </section>
-
-      {/* Footer with Background Image */}
-      <Footer />
     </div>
   );
 }

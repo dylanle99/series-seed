@@ -1,32 +1,59 @@
 "use client";
 
 import Preloader from "@/components/molecules/preloader";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import NavigationMenu from "@/components/molecules/navigation-menu";
 import Logo from "@/components/molecules/logo";
+import Footer from "@/components/molecules/footer";
+import { usePathname } from "next/navigation";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-  const [showPreloader, setShowPreloader] = useState(true);
+  const pathname = usePathname();
+  const [showPreloader, setShowPreloader] = useState(() => pathname === "/");
   const hasTriggeredRef = useRef(false);
 
-  const startExit = () => {
+  const markPreloaderComplete = useCallback(() => {
+    if (typeof window === "undefined") return;
+    (window as any).__PRELOADER_DONE__ = true;
+  }, []);
+
+  const startExit = useCallback(() => {
     if (hasTriggeredRef.current) return;
     hasTriggeredRef.current = true;
+    markPreloaderComplete();
     try {
-      (window as any).__PRELOADER_DONE__ = true;
       window.dispatchEvent(new CustomEvent("preloader:exit-start"));
-    } catch {}
+    } catch (error) {
+      console.error("[Preloader] Failed to dispatch exit event", error);
+    }
     setShowPreloader(false);
-  };
+  }, [markPreloaderComplete]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const hasSeenPreloader = (window as any).__PRELOADER_DONE__ === true;
+    const shouldShow = pathname === "/" && !hasSeenPreloader;
+
+    setShowPreloader(shouldShow);
+
+    if (!shouldShow) {
+      hasTriggeredRef.current = false;
+      markPreloaderComplete();
+    }
+  }, [pathname, markPreloaderComplete]);
+
+  useEffect(() => {
+    if (!showPreloader) return;
+
     // Safety fallback: in case the video "ended" event doesn't fire
     const failSafe = setTimeout(() => {
       startExit();
     }, 4000);
+
     return () => clearTimeout(failSafe);
-  }, []);
+  }, [showPreloader, startExit]);
 
   return (
     <main className="h-full w-screen bg-black">
@@ -47,6 +74,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </header>
           {children}
+
+          <Footer />
         </div>
 
         {/* Preloader overlay that slides up to reveal content */}

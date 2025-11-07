@@ -1,9 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
-import Footer from "@/components/molecules/footer";
 import { Badge } from "@/components/atomic/badge";
-
 import { cn } from "@/lib/utils";
-
 import agricultureImage from "./agriculture.png";
 import consumerGoodsImage from "./consumer-goods.png";
 import energyImage from "./energy.png";
@@ -14,6 +11,7 @@ import manufacturingImage from "./manufacturing.png";
 import rawMaterialsImage from "./raw-materials.png";
 import aerospaceImage from "./aerospace.png";
 import defenseImage from "./defense.png";
+import { Text } from "@/components/atomic/text";
 
 const categories: Array<{
   title: string;
@@ -64,6 +62,38 @@ const categories: Array<{
   },
 ];
 
+const eventTypes: Array<{
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  imageClassName?: string;
+}> = [
+  {
+    id: "roundtable-events",
+    title: "Roundtable Events",
+    description:
+      "Monthly small-group mentoring sessions with leading executives and operators tailored to each division’s needs.",
+    imageUrl: "/community/bento1.png",
+    imageClassName: "object-left",
+  },
+  {
+    id: "social-evenings",
+    title: "Social Evenings",
+    description:
+      "Quarterly gatherings that create space for members to connect, collaborate, and build long-term relationships.",
+    imageUrl: "/community/bento3.png",
+  },
+  {
+    id: "mentorship-program",
+    title: "Mentorship Program",
+    description:
+      "One-to-one mentorship and curated sessions designed to help members learn directly from the top leaders in their fields.",
+    imageUrl: "/community/bento4.png",
+    imageClassName: "object-left",
+  },
+];
+
 function CategoriesGrid() {
   return (
     <div className="mt-10 mx-auto max-w-7xl">
@@ -93,7 +123,7 @@ function CategoryCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-[1.02] min-h-72",
+        "group relative overflow-hidden rounded-lg transition-transform hover:scale-[1.02] min-h-72",
         className
       )}
     >
@@ -158,75 +188,31 @@ export default function CommunityPage() {
           <p className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange">
             Mentoring, educating, and activating the new generation of builders.
           </p>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:mt-16 lg:grid-cols-7 lg:grid-rows-2">
-            <div className="lg:col-span-4">
-              <div className="h-full overflow-hidden rounded-lg bg-brand-background shadow-sm outline outline-black/5 max-lg:rounded-t-4xl lg:rounded-tl-4xl dark:shadow-none dark:outline-white/15">
-                <div className="relative h-56 w-full sm:h-64 lg:h-72">
-                  <img
-                    alt=""
-                    src="/community/bento1.png"
-                    className="h-full w-full object-cover object-left"
-                  />
-                </div>
-                <div className="p-10 text-brand-orange">
-                  <p className="mt-2 text-xl font-medium tracking-tight">Roundtable Events</p>
-                  <p className="mt-2 text-base/6">
-                    Roundtables are open exclusively to Series Seed members. Every division meets
-                    monthly for a small group mentoring session with a leading executive or operator
-                    in that industry.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-3">
-              <div className="h-full overflow-hidden rounded-lg bg-brand-background shadow-sm outline outline-black/5 lg:rounded-tr-4xl dark:shadow-none dark:outline-white/15">
-                <div className="relative h-56 w-full sm:h-64 lg:h-72">
-                  <img alt="" src="/community/bento2.png" className="h-full w-full object-cover" />
-                </div>
-                <div className="p-10 text-brand-orange">
-                  <p className="mt-2 text-xl font-medium tracking-tight">Facetiming Series</p>
-                  <p className="mt-2 max-w-lg text-base/6">
-                    Open to the Series Seed members virtually, this series welcomes some of the top
-                    executives in the world for intimate and interactive conversations among peers
-                    and leaders.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-3">
-              <div className="h-full overflow-hidden rounded-lg bg-brand-background shadow-sm outline outline-black/5 lg:rounded-bl-4xl dark:shadow-none dark:outline-white/15">
-                <div className="relative h-56 w-full sm:h-64 lg:h-72">
-                  <img alt="" src="/community/bento3.png" className="h-full w-full object-cover" />
-                </div>
-                <div className="p-10 text-brand-orange">
-                  <p className="mt-2 text-xl font-medium tracking-tight">Social Evenings</p>
-                  <p className="mt-2 max-w-lg text-base/6">
-                    The Series Seed Social Club functions primarily as a social platform for our
-                    members. Social events are held quarterly and are opportunities for members to
-                    network with each other in a relaxed setting.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-4">
-              <div className="h-full overflow-hidden rounded-lg bg-brand-background shadow-sm outline outline-black/5 max-lg:rounded-b-4xl lg:rounded-br-4xl dark:shadow-none dark:outline-white/15">
-                <div className="relative h-56 w-full sm:h-64 lg:h-72">
-                  <img
-                    alt=""
-                    src="/community/bento4.png"
-                    className="h-full w-full object-cover object-left"
-                  />
-                </div>
-                <div className="p-10 text-brand-orange">
-                  <p className="mt-2 text-xl font-medium tracking-tight">Mentorship Program</p>
-                  <p className="mt-2 text-base/6">
-                    Between our sessions and one-to-one mentoring, Series Seed is committed to
-                    providing a platform where our members can meet and learn from the top business
-                    leaders in their industry.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="mx-auto mt-16 grid auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:grid-cols-3">
+            {eventTypes.map((event) => (
+              <article
+                key={event.id}
+                className="group relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-brand-background px-8 pb-8 pt-80 text-brand-orange ring-1 ring-brand-orange/10 transition-transform duration-300 hover:scale-[1.01] sm:pt-56 lg:pt-80"
+              >
+                <Image
+                  src={event.imageUrl}
+                  alt={event.title}
+                  fill
+                  className={cn(
+                    "absolute inset-0 -z-10 object-cover transition-transform duration-500 group-hover:scale-105",
+                    event.imageClassName
+                  )}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-black/10" />
+
+                <h3 className="text-lg font-semibold uppercase tracking-wide text-brand-orange">
+                  {event.title}
+                </h3>
+                <Text maxLines={3}>{event.description}</Text>
+              </article>
+            ))}
           </div>
         </div>
 
@@ -241,9 +227,6 @@ export default function CommunityPage() {
           <CategoriesGrid />
         </div>
       </div>
-
-      {/* Footer with Background Image */}
-      <Footer />
     </div>
   );
 }

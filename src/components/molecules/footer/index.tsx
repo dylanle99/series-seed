@@ -40,7 +40,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-background text-brand-orange">
+    <footer className="bg-black text-brand-orange">
       <div className="mx-auto max-w-7xl px-4 lg:px-0 py-16 space-y-12">
         <div className="flex flex-col items-center gap-6">
           <Logo className="size-10" />

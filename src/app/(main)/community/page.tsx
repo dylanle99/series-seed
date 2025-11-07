@@ -234,7 +234,7 @@ export default function CommunityPage() {
           <p className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange">
             Our networks
           </p>
-          <p className="mt-6 text-lg/8 text-brand-orange">
+          <p className="mt-6 text-lg/8 md:text-xl/8 text-brand-orange">
             Series Seed has a variety of industry networks. Our members participate in custom
             programs and gain access to the best mentors in their industries.
           </p>

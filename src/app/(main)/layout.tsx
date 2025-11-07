@@ -24,7 +24,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     // Safety fallback: in case the video "ended" event doesn't fire
     const failSafe = setTimeout(() => {
       startExit();
-    }, 0);
+    }, 4000);
     return () => clearTimeout(failSafe);
   }, []);
 

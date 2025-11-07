@@ -4,7 +4,7 @@ import Footer from "@/components/molecules/footer";
 
 export default function VisionPage() {
   return (
-    <div className="min-h-screen bg-brand-background text-brand-orange">
+    <div className="min-h-screen bg-black text-brand-orange">
       {/* Hero Section - Full Screen */}
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}

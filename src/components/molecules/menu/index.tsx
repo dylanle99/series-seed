@@ -21,9 +21,6 @@ export default function Menu() {
       name: "Community",
     },
     {
-      name: "Impact",
-    },
-    {
       name: "Events",
     },
     {

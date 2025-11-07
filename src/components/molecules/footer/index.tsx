@@ -9,7 +9,6 @@ type IconProps = ComponentProps<"svg">;
 const MAIN_LINKS = [
   { name: "Vision", href: "/vision" },
   { name: "Community", href: "/community" },
-  { name: "Impact", href: "/impact" },
   { name: "Events", href: "/events" },
   { name: "Contact", href: "/contact" },
 ];

@@ -24,7 +24,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     // Safety fallback: in case the video "ended" event doesn't fire
     const failSafe = setTimeout(() => {
       startExit();
-    }, 10000);
+    }, 0);
     return () => clearTimeout(failSafe);
   }, []);
 
@@ -34,7 +34,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         {/* Main content stays mounted underneath */}
         <div className="size-full">
           <header className="absolute inset-x-0 top-0 z-50">
-            <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
+            <nav
+              aria-label="Global"
+              className="relative z-10 flex items-start justify-between p-8 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
+            >
               <div className="flex lg:flex-1">
                 <a href="/" className="-m-1.5 p-1.5">
                   <Logo className="size-8 lg:size-10" />

@@ -41,17 +41,11 @@ export default function VisionPage() {
             <div className="text-lg gap-8 text-brand-orange">
               <div>
                 <p className="text-2xl font-medium tracking-tight lg:text-3xl">
-                  At Series Seed, we curate a global community of entrepreneurs, operators, and
-                  domain experts across America's backbone industries, united by the courage to
-                  tackle hard problems that matter.
-                </p>
-                <p className="mt-8 text-2xl font-medium tracking-tight lg:text-3xl">
-                  Our members are relentlessly curious world builders, change makers, visionaries,
-                  leaders and agents of transformation, who come from a range of ten distinct
-                  industries. From factory floors and ports to labs, classrooms, clinics, farms, and
-                  control rooms, the real economy shapes how we live. Series Seed celebrates a
-                  culture of craft, judgment, and service, making it the bedrock of our programs,
-                  mentorship, and shared standards.
+                  At Series Seed, we curate a private mentorship circle of entrepreneurs, operators,
+                  and experts from America's backbone industries, designed to guide the next
+                  generation of builders. From ports to clinics, farms to labs, factory floors to
+                  control rooms, our members are united by the courage to tackle hard problems that
+                  move the real economy forward.
                 </p>
               </div>
             </div>

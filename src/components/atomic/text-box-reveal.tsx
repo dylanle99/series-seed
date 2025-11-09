@@ -144,7 +144,7 @@ const AnimatedWord: FC<AnimatedWordProps> = ({
   return (
     <motion.span
       className={cn(
-        "relative mx-1 inline-block text-brand-orange lg:mx-1.5",
+        "relative mx-0.75 inline-block text-brand-orange lg:mx-1.25 tracking-responsive",
         highlight === children && highlightTextClass
       )}
       style={{ opacity }}

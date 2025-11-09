@@ -45,10 +45,13 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-6">
           <Logo className="size-10" />
           <nav aria-label="Footer navigation">
-            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-semibold uppercase tracking-wide">
+            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium uppercase tracking-wide">
               {MAIN_LINKS.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="transition-opacity hover:opacity-80">
+                  <Link
+                    href={item.href}
+                    className="transition-opacity hover:opacity-80 tracking-responsive"
+                  >
                     {item.name}
                   </Link>
                 </li>
@@ -72,7 +75,7 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-          <p className="text-sm text-brand-orange/80">
+          <p className="text-sm text-brand-orange/80 tracking-responsive">
             &copy; {new Date().getFullYear()} Series Seed. All rights reserved.
           </p>
         </div>

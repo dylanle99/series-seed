@@ -1,64 +1,76 @@
-import Image, { type StaticImageData } from "next/image";
+"use client";
+
+import Image from "next/image";
 import { Badge } from "@/components/atomic/badge";
 import { cn } from "@/lib/utils";
-import agricultureImage from "./agriculture.png";
-import consumerGoodsImage from "./consumer-goods.png";
-import energyImage from "./energy.png";
-import financeImage from "./finance.png";
-import healthcareImage from "./healthcare.png";
-import lifeSciencesImage from "./life-sciences.png";
-import manufacturingImage from "./manufacturing.png";
-import rawMaterialsImage from "./raw-materials.png";
-import aerospaceImage from "./aerospace.png";
-import defenseImage from "./defense.png";
-import { Text } from "@/components/atomic/text";
+import { EventCarousel } from "@/components/molecules/event-carousel";
+
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import Lenis from "lenis";
+import { useEffect, useRef, useState } from "react";
+
+const images = [
+  "https://skiper-ui.com/images/lummi/img15.png",
+  "https://skiper-ui.com/images/lummi/img21.png",
+  "https://skiper-ui.com/images/lummi/img3.png",
+  "https://skiper-ui.com/images/lummi/img4.png",
+  "https://skiper-ui.com/images/lummi/img5.png",
+  "https://skiper-ui.com/images/lummi/img6.png",
+  "/images/lummi/img7.png",
+  "https://skiper-ui.com/images/lummi/img8.png",
+  "https://skiper-ui.com/images/lummi/img24.png",
+  "/images/lummi/img10.png",
+  "https://skiper-ui.com/images/lummi/img11.png",
+  "https://skiper-ui.com/images/lummi/img12.png",
+  "https://skiper-ui.com/images/lummi/img13.png",
+];
 
 const categories: Array<{
   title: string;
-  image: StaticImageData;
+  image: string;
   className?: string;
 }> = [
   {
     title: "Raw Materials",
-    image: rawMaterialsImage,
+    image: "/community/raw-materials.png",
     className: "md:row-span-2",
   },
   {
-    title: "Consumer Goods",
-    image: consumerGoodsImage,
+    title: "Retail",
+    image: "/community/retail.png",
   },
   {
     title: "Manufacturing",
-    image: manufacturingImage,
+    image: "/community/manufacturing.png",
   },
   {
     title: "Life Sciences",
-    image: lifeSciencesImage,
+    image: "/community/life-sciences.png",
   },
   {
     title: "Healthcare",
-    image: healthcareImage,
+    image: "/community/healthcare.png",
   },
   {
     title: "Energy",
-    image: energyImage,
+    image: "/community/energy.png",
   },
   {
     title: "Finance",
-    image: financeImage,
+    image: "/community/finance.png",
   },
   {
     title: "Agriculture",
-    image: agricultureImage,
+    image: "/community/agriculture.png",
     className: "md:row-span-2",
   },
   {
     title: "Aerospace",
-    image: aerospaceImage,
+    image: "/community/aerospace.png",
   },
   {
     title: "Defense",
-    image: defenseImage,
+    image: "/community/defense.png",
   },
 ];
 
@@ -85,6 +97,13 @@ const eventTypes: Array<{
     imageUrl: "/community/bento3.png",
   },
   {
+    id: "monthly-intimate-dinners",
+    title: "Monthly Intimate Dinners",
+    description:
+      "Curated small-format dinners that foster deeper connections and candid conversations among members.",
+    imageUrl: "/community/bento2.png",
+  },
+  {
     id: "mentorship-program",
     title: "Mentorship Program",
     description:
@@ -97,7 +116,7 @@ const eventTypes: Array<{
 function CategoriesGrid() {
   return (
     <div className="mt-10 mx-auto max-w-7xl">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:auto-rows-[280px]">
+      <div className="grid grid-cols-1 gap-8 auto-rows-[240px] md:grid-cols-3 md:auto-rows-[280px]">
         {categories.map((category) => (
           <CategoryCard
             key={category.title}
@@ -117,13 +136,13 @@ function CategoryCard({
   className,
 }: {
   title: string;
-  image: StaticImageData | string;
+  image: string;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-lg transition-transform hover:scale-[1.02] min-h-72",
+        "group relative overflow-hidden rounded-lg transition-transform hover:scale-[1.02] h-full",
         className
       )}
     >
@@ -131,7 +150,7 @@ function CategoryCard({
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
         style={{
-          backgroundImage: `url(${typeof image === "string" ? image : image.src})`,
+          backgroundImage: `url(${image})`,
         }}
       />
 
@@ -140,13 +159,84 @@ function CategoryCard({
 
       {/* Content */}
       <div className="relative flex h-full items-center justify-center p-6">
-        <h2 className="text-center text-2xl md:text-3xl font-bold text-brand-orange text-balance leading-tight">
+        <h2 className="text-center text-2xl md:text-3xl font-bold text-brand-orange text-balance leading-tight tracking-responsive">
           {title}
         </h2>
       </div>
     </div>
   );
 }
+
+type ColumnProps = {
+  images: string[];
+  y: MotionValue<number>;
+};
+
+const Column = ({ images, y }: ColumnProps) => {
+  return (
+    <motion.div
+      className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]"
+      style={{ y }}
+    >
+      {images.map((src, i) => (
+        <div key={i} className="relative h-full w-full overflow-hidden">
+          <img src={`${src}`} alt="image" className="pointer-events-none object-cover" />
+        </div>
+      ))}
+    </motion.div>
+  );
+};
+
+const Skiper30 = () => {
+  const gallery = useRef<HTMLDivElement>(null);
+  const [dimension, setDimension] = useState({ width: 0, height: 0 });
+
+  const { scrollYProgress } = useScroll({
+    target: gallery,
+    offset: ["start end", "end start"],
+  });
+
+  const { height } = dimension;
+  const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    const resize = () => {
+      setDimension({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(raf);
+    resize();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <main className="w-full bg-black text-brand-orange">
+      <div
+        ref={gallery}
+        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
+      >
+        <Column images={[images[0], images[1], images[2]]} y={y} />
+        <Column images={[images[3], images[4], images[5]]} y={y2} />
+        <Column images={[images[6], images[7], images[8]]} y={y3} />
+        <Column images={[images[6], images[7], images[8]]} y={y4} />
+      </div>
+    </main>
+  );
+};
 
 export default function CommunityPage() {
   return (
@@ -171,58 +261,48 @@ export default function CommunityPage() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex h-full items-center justify-center">
-          <h1 className="text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange">
+          <h1 className="text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive">
             Community
           </h1>
         </div>
       </section>
 
+      <Skiper30 />
+
       <div className="bg-black py-24 sm:py-32 space-y-32">
-        <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-left lg:text-center">
           <Badge
             variant="outline"
-            className="text-base font-semibold uppercase tracking-wide text-brand-orange border-brand-orange bg-brand-background"
+            className="text-base font-semibold uppercase tracking-wide text-brand-orange border-brand-orange bg-brand-background mx-auto tracking-responsive"
           >
             Your access to success
           </Badge>
-          <p className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange">
+          <p className="mt-2 max-w-2xl mx-auto text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange tracking-responsive">
             Mentoring, educating, and activating the new generation of builders.
           </p>
-          <div className="mx-auto mt-16 grid auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:grid-cols-3">
-            {eventTypes.map((event) => (
-              <article
-                key={event.id}
-                className="group relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-brand-background px-8 pb-8 pt-80 text-brand-orange ring-1 ring-brand-orange/10 transition-transform duration-300 hover:scale-[1.01] sm:pt-56 lg:pt-80"
-              >
-                <Image
-                  src={event.imageUrl}
-                  alt={event.title}
-                  fill
-                  className={cn(
-                    "absolute inset-0 -z-10 object-cover transition-transform duration-500 group-hover:scale-105",
-                    event.imageClassName
-                  )}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-black/10" />
-
-                <h3 className="text-lg font-semibold uppercase tracking-wide text-brand-orange">
-                  {event.title}
-                </h3>
-                <Text maxLines={3}>{event.description}</Text>
-              </article>
-            ))}
+          <div className="mt-16 sm:mt-20 text-left">
+            <EventCarousel
+              events={eventTypes}
+              loop={true}
+              showNavigation={true}
+              showPagination={true}
+            />
           </div>
         </div>
 
-        <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <p className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange">
-            Our networks
+        <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-left lg:text-center">
+          <Badge
+            variant="outline"
+            className="text-base font-semibold uppercase tracking-wide text-brand-orange border-brand-orange bg-brand-background mx-auto"
+          >
+            Industry Networks
+          </Badge>
+          <p className="mt-2 max-w-2xl mx-auto text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange tracking-responsive">
+            There's no other network like Series Seed.
           </p>
-          <p className="mt-6 text-lg/8 md:text-xl/8 text-brand-orange">
-            Series Seed has a variety of industry networks. Our members participate in custom
-            programs and gain access to the best mentors in their industries.
+          <p className="mt-6 mx-auto max-w-2xl lg:text-center text-lg/8 md:text-xl/8 text-brand-orange tracking-responsive">
+            Series Seed has a variety of industry networks. Our members gain access to the best
+            mentors in their industries.
           </p>
           <CategoriesGrid />
         </div>

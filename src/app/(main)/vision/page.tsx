@@ -20,23 +20,23 @@ export default function VisionPage() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex h-full items-center justify-center">
-          <h1 className="text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange">
+          <h1 className="text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive">
             Vision
           </h1>
         </div>
       </section>
 
-      <section className="py-32 px-4 lg:px-0 mx-auto max-w-7xl">
+      <section className="py-32 px-8 2xl:px-0 mx-auto max-w-7xl">
         <div className="container space-y-10 lg:space-y-20">
           <div className="w-full grid-cols-6 gap-10 space-y-5 lg:grid lg:space-y-0">
-            <h1 className="col-span-6 text-5xl font-semibold tracking-tighter lg:text-8xl">
+            <h1 className="col-span-6 text-5xl font-semibold tracking-tighter lg:text-8xl tracking-responsive">
               We ask what drives the real economy, who shapes its future, and how to push it
               forward—together.
             </h1>
             <div />
           </div>
 
-          <div className="text-lg gap-8 text-brand-orange">
+          <div className="text-lg gap-8 text-brand-orange tracking-responsive">
             <TextBoxReveal
               highlight="distributed"
               highlightTextClass="!text-orange-500"

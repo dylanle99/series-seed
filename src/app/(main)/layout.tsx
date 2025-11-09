@@ -56,19 +56,22 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   }, [showPreloader, startExit]);
 
   return (
-    <main className="h-full w-screen bg-black">
+    <main
+      className="h-full w-screen bg-black"
+      style={{ "--header-height": "6rem" } as React.CSSProperties}
+    >
       <div className="relative size-full">
         {/* Main content stays mounted underneath */}
         <div className="size-full">
           <header className="absolute inset-x-0 top-0 z-50">
             <nav
               aria-label="Global"
-              className="relative z-10 flex items-start justify-between p-8 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
+              className="relative z-10 flex items-start justify-between p-8 px-4 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
             >
               <div className="flex lg:flex-1">
-                <a href="/" className="-m-1.5 p-1.5">
+                <div className="-m-1.5 p-1.5">
                   <Logo className="size-8 lg:size-10" />
-                </a>
+                </div>
               </div>
               <NavigationMenu placement="inline" />
             </nav>

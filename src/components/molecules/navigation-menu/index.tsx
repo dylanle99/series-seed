@@ -39,13 +39,15 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
         <div className="fixed inset-0 z-50 bg-black overflow-hidden">
           <div className="relative h-full flex flex-col">
             <div className="relative z-10 flex items-start justify-between p-6 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]">
-              <Logo className="size-8 lg:size-10" />
+              <div onClick={() => setIsOpen(false)}>
+                <Logo className="size-8 lg:size-10" />
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-12 h-12 rounded-full border border-brand-orange/30 flex items-center justify-center hover:bg-brand-orange/10 transition-colors"
+                className="flex flex-col gap-1 hover:opacity-70 transition-opacity cursor-pointer"
                 aria-label="Close menu"
               >
-                <X className="w-5 h-5 text-brand-orange" />
+                <X className="w-6 h-6 lg:w-8 lg:h-8 text-brand-orange" />
               </button>
             </div>
 

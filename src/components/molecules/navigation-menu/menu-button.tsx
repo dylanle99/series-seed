@@ -1,6 +1,6 @@
 "use client";
 
-import { EllipsisVertical, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import React from "react";
 
 type MenuButtonProps = {
@@ -21,10 +21,10 @@ export default function MenuButton({
   return (
     <button
       onClick={onClick}
-      className={`${positionClasses} flex flex-col gap-1 p-2 hover:opacity-70 transition-opacity cursor-pointer ${className}`}
+      className={`${positionClasses} flex flex-col gap-1 hover:opacity-70 transition-opacity cursor-pointer ${className}`}
       aria-label={ariaLabel}
     >
-      <EllipsisVertical className="w-6 h-6 lg:w-8 lg:h-8 text-brand-orange" />
+      <Menu className="w-6 h-6 lg:w-8 lg:h-8 text-brand-orange" />
     </button>
   );
 }

@@ -87,7 +87,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
                       <Link
                         href={item.href}
                         onClick={() => setIsOpen(false)}
-                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-orange font-semibold uppercase leading-[0.8] tracking-[-0.03em] hover:underline"
+                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-orange hover:text-brand-orange/80 font-semibold uppercase leading-[0.8] tracking-[-0.03em]"
                       >
                         {item.label}
                       </Link>

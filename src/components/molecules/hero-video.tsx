@@ -44,6 +44,3 @@ export default function HeroVideo({ src, className = "" }: HeroVideoProps) {
     />
   );
 }
-
-
-

@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
+import SplitText from "@/components/molecules/split-text";
 
 type TermItem = {
   id: string;
@@ -379,7 +380,15 @@ export default function PrivacyPolicyPage() {
         paddingBottom: "calc(var(--header-height) + 1rem)",
       }}
     >
-      <h1 className="font-cal-sans text-center text-3xl text-brand-orange md:text-5xl">{title}</h1>
+      <SplitText
+        text={title}
+        tag="h1"
+        className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive"
+        splitType="chars"
+        delay={50}
+        duration={0.8}
+        textAlign="center"
+      />
       <div className="relative mb-[50vh] flex gap-12 py-[40px] md:py-[80px]">
         <ul className="sticky top-24 hidden h-fit w-full max-w-[300px] space-y-4 border-l border-brand-orange/20 md:block">
           {terms.map((term, index) => (

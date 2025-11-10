@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Skiper70, TextBoxReveal } from "@/components/atomic/text-box-reveal";
+import SplitText from "@/components/molecules/split-text";
 
 export default function VisionPage() {
   return (
@@ -20,9 +23,19 @@ export default function VisionPage() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex h-full items-center justify-center">
-          <h1 className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive">
-            Vision
-          </h1>
+          <SplitText
+            text="Vision"
+            tag="h1"
+            className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive"
+            splitType="chars"
+            delay={50}
+            duration={0.8}
+            ease="power3.out"
+            from={{ opacity: 0, y: 100 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.3}
+            textAlign="center"
+          />
         </div>
       </section>
 

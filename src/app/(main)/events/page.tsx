@@ -12,6 +12,7 @@ import { useEvents } from "@/hooks/use-events";
 import { Event } from "@/types/schema";
 import { EVENT_TYPE_LABELS } from "@/lib/constants";
 import { getValidImageUrl } from "@/lib/helpers";
+import SplitText from "@/components/molecules/split-text";
 
 function EventCard({ event }: { event: Event }) {
   const [imageError, setImageError] = useState(false);
@@ -198,9 +199,15 @@ export default function EventsPage() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex h-full items-center justify-center">
-          <h1 className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange">
-            Events
-          </h1>
+          <SplitText
+            text="Events"
+            tag="h1"
+            className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange"
+            splitType="chars"
+            delay={100}
+            duration={0.8}
+            textAlign="center"
+          />
         </div>
       </section>
 

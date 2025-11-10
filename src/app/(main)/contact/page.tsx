@@ -5,6 +5,7 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 import { saveUserInfo } from "@/lib/server-actions";
+import SplitText from "@/components/molecules/split-text";
 
 // Component adapted from Aceternity UI by Manu Arora
 // Source: https://ui.aceternity.com/registry/placeholders-and-vanish-input.json
@@ -310,7 +311,15 @@ export default function ContactPage() {
     >
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="space-y-8">
-          <h1 className="text-4xl font-normal text-brand-orange md:text-5xl">Contact Us</h1>
+          <SplitText
+            text="Contact Us"
+            tag="h1"
+            className="text-4xl font-normal text-brand-orange md:text-5xl"
+            splitType="chars"
+            delay={80}
+            duration={0.8}
+            textAlign="left"
+          />
           <div className="border-b border-brand-orange/30 pb-4 min-h-[100px] flex flex-col">
             {!isSubmitted ? (
               <>

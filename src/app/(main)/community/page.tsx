@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { Badge } from "@/components/atomic/badge";
 import { cn } from "@/lib/utils";
-import { EventCarousel } from "@/components/molecules/event-carousel";
 import SplitText from "@/components/molecules/split-text";
+import { EventTypesCarousel } from "./event-types";
+import { industryCategories, eventTypes } from "@/lib/constants";
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
@@ -12,99 +13,11 @@ import { useEffect, useRef, useState } from "react";
 
 const galleryImages = Array.from({ length: 12 }, (_, i) => `/community/gallery/${i + 1}.png`);
 
-const categories: Array<{
-  title: string;
-  image: string;
-  className?: string;
-}> = [
-  {
-    title: "Raw Materials",
-    image: "/community/industries/raw-materials.png",
-    className: "md:row-span-2",
-  },
-  {
-    title: "Retail",
-    image: "/community/industries/retail.png",
-  },
-  {
-    title: "Manufacturing",
-    image: "/community/industries/manufacturing.png",
-  },
-  {
-    title: "Life Sciences",
-    image: "/community/industries/life-sciences.png",
-  },
-  {
-    title: "Healthcare",
-    image: "/community/industries/healthcare.png",
-  },
-  {
-    title: "Energy",
-    image: "/community/industries/energy.png",
-  },
-  {
-    title: "Finance",
-    image: "/community/industries/finance.png",
-  },
-  {
-    title: "Agriculture",
-    image: "/community/industries/agriculture.png",
-    className: "md:row-span-2",
-  },
-  {
-    title: "Aerospace",
-    image: "/community/industries/aerospace.png",
-  },
-  {
-    title: "Defense",
-    image: "/community/industries/defense.png",
-  },
-];
-
-const eventTypes: Array<{
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  imageClassName?: string;
-}> = [
-  {
-    id: "monthly-intimate-dinners",
-    title: "Monthly Intimate Dinners",
-    description:
-      "Curated small-format dinners that foster deeper connections and candid conversations among members.",
-    imageUrl: "/community/event-types/monthly-intimate-dinners.png",
-  },
-  {
-    id: "social-evenings",
-    title: "Social Evenings",
-    description:
-      "Quarterly gatherings that create space for members to connect, collaborate, and build long-term relationships.",
-    imageUrl: "/community/event-types/social-evenings.png",
-  },
-  {
-    id: "roundtable-events",
-    title: "Roundtable Events",
-    description:
-      "Monthly small-group mentoring sessions with leading executives and operators tailored to each division’s needs.",
-    imageUrl: "/community/event-types/roundtable-events.png",
-    imageClassName: "object-top",
-  },
-  {
-    id: "mentorship-program",
-    title: "Mentorship Program",
-    description:
-      "One-to-one mentorship and curated sessions designed to help members learn directly from the top leaders in their fields.",
-    imageUrl: "/community/event-types/mentorship-program.png",
-    imageClassName: "object-center",
-  },
-];
-
 function CategoriesGrid() {
   return (
     <div className="mt-10 mx-auto max-w-7xl">
       <div className="grid grid-cols-1 gap-8 auto-rows-[240px] md:grid-cols-3 md:auto-rows-[280px]">
-        {categories.map((category) => (
+        {industryCategories.map((category) => (
           <CategoryCard
             key={category.title}
             title={category.title}
@@ -273,13 +186,8 @@ export default function CommunityPage() {
           <p className="mt-2 max-w-2xl mx-auto text-4xl font-semibold tracking-tight text-pretty text-brand-orange sm:text-5xl dark:text-brand-orange tracking-responsive">
             Mentoring, educating, and activating the new generation of builders.
           </p>
-          <div className="mt-16 sm:mt-20 text-left">
-            <EventCarousel
-              events={eventTypes}
-              loop={true}
-              showNavigation={true}
-              showPagination={true}
-            />
+          <div className="mt-16 sm:mt-20">
+            <EventTypesCarousel events={eventTypes} autoPlayInterval={5000} />
           </div>
         </div>
 

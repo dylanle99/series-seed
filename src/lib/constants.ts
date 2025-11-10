@@ -19,8 +19,8 @@ export type IndustryCategory = {
 
 export const industryCategories: IndustryCategory[] = [
   {
-    title: "Raw Materials",
-    image: "/community/industries/raw-materials.png",
+    title: "Agriculture",
+    image: "/community/industries/agriculture.png",
     className: "md:row-span-2",
   },
   {
@@ -32,8 +32,8 @@ export const industryCategories: IndustryCategory[] = [
     image: "/community/industries/manufacturing.png",
   },
   {
-    title: "Life Sciences",
-    image: "/community/industries/life-sciences.png",
+    title: "Finance",
+    image: "/community/industries/finance.png",
   },
   {
     title: "Healthcare",
@@ -44,12 +44,12 @@ export const industryCategories: IndustryCategory[] = [
     image: "/community/industries/energy.png",
   },
   {
-    title: "Finance",
-    image: "/community/industries/finance.png",
+    title: "Life Sciences",
+    image: "/community/industries/life-sciences.png",
   },
   {
-    title: "Agriculture",
-    image: "/community/industries/agriculture.png",
+    title: "Raw Materials",
+    image: "/community/industries/raw-materials.png",
     className: "md:row-span-2",
   },
   {

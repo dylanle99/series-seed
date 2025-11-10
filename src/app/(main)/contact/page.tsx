@@ -6,34 +6,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { saveUserInfo } from "@/lib/server-actions";
 
-const Skiper56 = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
-
-  return (
-    <div className="flex h-full w-full flex-col justify-center gap-6 bg-[#f5f4f3]">
-      <div className="lg:h-22 flex h-14 w-full items-center justify-end">
-        <div className="ml-10 h-full w-full border-b border-black/10 lg:w-[50vw]">
-          <VanishForm placeholder="yo@gxuri.in" onChange={handleChange} onSubmit={onSubmit} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export { Skiper56 };
-
 // Component adapted from Aceternity UI by Manu Arora
 // Source: https://ui.aceternity.com/registry/placeholders-and-vanish-input.json
 // Integrated into Skiper UI with design system and code structure updates
 // Respect original creator's rights.
 
-export function VanishForm({
+function VanishForm({
   placeholder,
   onChange,
   onSubmit,

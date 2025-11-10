@@ -96,11 +96,11 @@ function EventsTimeline() {
   const upcomingData = upcomingEvents.map((event) => {
     const eventDate = event.occured_at ? new Date(event.occured_at) : null;
     const monthYear = eventDate
-      ? eventDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })
+      ? eventDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
       : "TBA";
 
     return {
-      title: monthYear,
+      ocurredAt: monthYear,
       content: (
         <div className="space-y-6">
           <EventCard event={event} />
@@ -112,11 +112,11 @@ function EventsTimeline() {
   const pastData = pastEvents.map((event) => {
     const eventDate = event.occured_at ? new Date(event.occured_at) : null;
     const monthYear = eventDate
-      ? eventDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })
+      ? eventDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
       : "TBA";
 
     return {
-      title: monthYear,
+      ocurredAt: monthYear,
       content: (
         <div className="space-y-6">
           <EventCard event={event} />

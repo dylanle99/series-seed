@@ -3,7 +3,7 @@ import { useMotionValueEvent, useScroll, useTransform, motion } from "motion/rea
 import React, { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
-  title: string;
+  ocurredAt: string;
   content: React.ReactNode;
 }
 
@@ -32,19 +32,19 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     <div className="w-full bg-black font-sans md:px-10" ref={containerRef}>
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
         {data.map((item) => (
-          <div key={item.title} className="flex justify-start py-10 md:py-40 md:gap-10">
+          <div key={item.ocurredAt} className="flex justify-start py-10 md:py-40 md:gap-10">
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-6 absolute left-[13px] w-6 rounded-full bg-black flex items-center justify-center">
                 <div className="h-3 w-3 rounded-full bg-brand-orange border border-brand-orange" />
               </div>
               <h3 className="hidden md:block text-xl md:pl-20 md:text-3xl font-medium text-brand-orange tracking-responsive ">
-                {item.title}
+                {item.ocurredAt}
               </h3>
             </div>
 
             <div className="relative pl-20 pr-6 md:pl-6 w-full">
               <h3 className="md:hidden block text-2xl mb-4 text-left font-semibold text-brand-orange tracking-responsive">
-                {item.title}
+                {item.ocurredAt}
               </h3>
               {React.Children.toArray(item.content)}
             </div>

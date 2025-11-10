@@ -11,12 +11,6 @@ type TermItem = {
   content: React.ReactNode;
 };
 
-type Skiper60Props = {
-  title?: string;
-  terms?: TermItem[];
-  className?: string;
-};
-
 const TermSection = ({
   term,
   index,
@@ -372,16 +366,14 @@ const defaultTerms: TermItem[] = [
   },
 ];
 
-export default function PrivacyPolicyPage({
-  title = "Privacy Policy",
-  terms = defaultTerms,
-  className,
-}: Skiper60Props) {
+export default function PrivacyPolicyPage() {
   const [activeTerm, setActiveTerm] = useState(0);
+  const title = "Privacy Policy";
+  const terms = defaultTerms;
 
   return (
     <div
-      className={cn("min-h-screen bg-black p-4 lg:p-12", className)}
+      className="min-h-screen bg-black p-4 lg:p-12"
       style={{
         paddingTop: "calc(var(--header-height) + 1rem)",
         paddingBottom: "calc(var(--header-height) + 1rem)",

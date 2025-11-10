@@ -6,6 +6,8 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
 import { Calendar, MapPin, ArrowLeft, Check } from "lucide-react";
+import { Jelly } from "ldrs/react";
+import "ldrs/react/Jelly.css";
 import { Event, Mentor } from "@/types/schema";
 import { getValidImageUrl } from "@/lib/helpers";
 import { EVENT_TYPE_LABELS } from "@/lib/constants";
@@ -83,7 +85,7 @@ export default function EventPage() {
   if (isEventLoading) {
     return (
       <div className="min-h-screen bg-black text-brand-orange flex items-center justify-center">
-        <p className="text-lg">Loading event...</p>
+        <Jelly size="40" speed="0.9" color="#ff4f00" />
       </div>
     );
   }
@@ -194,7 +196,7 @@ export default function EventPage() {
         {isMentorsLoading ? (
           <div>
             <h2 className="text-2xl font-semibold mb-6 text-brand-orange">Speakers</h2>
-            <p className="text-brand-orange/70">Loading speakers...</p>
+            <Jelly size="40" speed="0.9" color="#ff4f00" />
           </div>
         ) : mentors && mentors.length > 0 ? (
           <div>

@@ -9,21 +9,7 @@ import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
 import { useEffect, useRef, useState } from "react";
 
-const images = [
-  "https://skiper-ui.com/images/lummi/img15.png",
-  "https://skiper-ui.com/images/lummi/img21.png",
-  "https://skiper-ui.com/images/lummi/img3.png",
-  "https://skiper-ui.com/images/lummi/img4.png",
-  "https://skiper-ui.com/images/lummi/img5.png",
-  "https://skiper-ui.com/images/lummi/img6.png",
-  "/images/lummi/img7.png",
-  "https://skiper-ui.com/images/lummi/img8.png",
-  "https://skiper-ui.com/images/lummi/img24.png",
-  "/images/lummi/img10.png",
-  "https://skiper-ui.com/images/lummi/img11.png",
-  "https://skiper-ui.com/images/lummi/img12.png",
-  "https://skiper-ui.com/images/lummi/img13.png",
-];
+const galleryImages = Array.from({ length: 12 }, (_, i) => `/community/gallery/${i + 1}.png`);
 
 const categories: Array<{
   title: string;
@@ -32,45 +18,45 @@ const categories: Array<{
 }> = [
   {
     title: "Raw Materials",
-    image: "/community/raw-materials.png",
+    image: "/community/industries/raw-materials.png",
     className: "md:row-span-2",
   },
   {
     title: "Retail",
-    image: "/community/retail.png",
+    image: "/community/industries/retail.png",
   },
   {
     title: "Manufacturing",
-    image: "/community/manufacturing.png",
+    image: "/community/industries/manufacturing.png",
   },
   {
     title: "Life Sciences",
-    image: "/community/life-sciences.png",
+    image: "/community/industries/life-sciences.png",
   },
   {
     title: "Healthcare",
-    image: "/community/healthcare.png",
+    image: "/community/industries/healthcare.png",
   },
   {
     title: "Energy",
-    image: "/community/energy.png",
+    image: "/community/industries/energy.png",
   },
   {
     title: "Finance",
-    image: "/community/finance.png",
+    image: "/community/industries/finance.png",
   },
   {
     title: "Agriculture",
-    image: "/community/agriculture.png",
+    image: "/community/industries/agriculture.png",
     className: "md:row-span-2",
   },
   {
     title: "Aerospace",
-    image: "/community/aerospace.png",
+    image: "/community/industries/aerospace.png",
   },
   {
     title: "Defense",
-    image: "/community/defense.png",
+    image: "/community/industries/defense.png",
   },
 ];
 
@@ -86,30 +72,30 @@ const eventTypes: Array<{
     title: "Monthly Intimate Dinners",
     description:
       "Curated small-format dinners that foster deeper connections and candid conversations among members.",
-    imageUrl: "/community/monthly-intimate-dinners.png",
+    imageUrl: "/community/event-types/monthly-intimate-dinners.png",
   },
   {
     id: "social-evenings",
     title: "Social Evenings",
     description:
       "Quarterly gatherings that create space for members to connect, collaborate, and build long-term relationships.",
-    imageUrl: "/community/social-evenings.png",
+    imageUrl: "/community/event-types/social-evenings.png",
   },
   {
     id: "roundtable-events",
     title: "Roundtable Events",
     description:
       "Monthly small-group mentoring sessions with leading executives and operators tailored to each division’s needs.",
-    imageUrl: "/community/roundtable-events.png",
-    imageClassName: "object-left",
+    imageUrl: "/community/event-types/roundtable-events.png",
+    imageClassName: "object-top",
   },
   {
     id: "mentorship-program",
     title: "Mentorship Program",
     description:
       "One-to-one mentorship and curated sessions designed to help members learn directly from the top leaders in their fields.",
-    imageUrl: "/community/mentorship-program.png",
-    imageClassName: "object-left",
+    imageUrl: "/community/event-types/mentorship-program.png",
+    imageClassName: "object-center",
   },
 ];
 
@@ -142,7 +128,7 @@ function CategoryCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-lg transition-transform hover:scale-[1.02] h-full",
+        "group relative overflow-hidden rounded-xl transition-transform hover:scale-[1.02] h-full",
         className
       )}
     >
@@ -229,10 +215,10 @@ const Skiper30 = () => {
         ref={gallery}
         className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
       >
-        <Column images={[images[0], images[1], images[2]]} y={y} />
-        <Column images={[images[3], images[4], images[5]]} y={y2} />
-        <Column images={[images[6], images[7], images[8]]} y={y3} />
-        <Column images={[images[6], images[7], images[8]]} y={y4} />
+        <Column images={[galleryImages[0], galleryImages[1], galleryImages[2]]} y={y} />
+        <Column images={[galleryImages[3], galleryImages[4], galleryImages[5]]} y={y2} />
+        <Column images={[galleryImages[6], galleryImages[7], galleryImages[8]]} y={y3} />
+        <Column images={[galleryImages[6], galleryImages[7], galleryImages[8]]} y={y4} />
       </div>
     </main>
   );

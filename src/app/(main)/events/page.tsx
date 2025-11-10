@@ -53,7 +53,7 @@ function EventCard({ event }: { event: Event }) {
   );
 }
 
-export function TimelineDemo() {
+function TimelineDemo() {
   const [eventType, setEventType] = useState("upcoming");
   const { events, isLoading, isError } = useEvents();
 

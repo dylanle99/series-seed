@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useMemo } from "react";
+import { Jelly } from "ldrs/react";
+import "ldrs/react/Jelly.css";
 import { Timeline } from "@/components/atomic/timeline";
 import { EventSwitch } from "@/components/atomic/event-switch";
 import { Card, CardFooter } from "@/components/atomic/card";
@@ -53,7 +55,7 @@ function EventCard({ event }: { event: Event }) {
   );
 }
 
-function TimelineDemo() {
+function EventsTimeline() {
   const [eventType, setEventType] = useState("upcoming");
   const { events, isLoading, isError } = useEvents();
 
@@ -131,7 +133,7 @@ function TimelineDemo() {
           <EventSwitch value={eventType} onValueChange={setEventType} />
         </div>
         <div className="flex items-center justify-center min-h-[400px]">
-          <p className="text-brand-orange text-lg">Loading events...</p>
+          <Jelly size="40" speed="0.9" color="#ff4f00" />
         </div>
       </div>
     );
@@ -204,7 +206,7 @@ export default function EventsPage() {
 
       {/* Timeline Section */}
       <section className="relative z-10 w-full">
-        <TimelineDemo />
+        <EventsTimeline />
       </section>
     </div>
   );

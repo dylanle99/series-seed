@@ -26,7 +26,7 @@ export default function VisionPage() {
         </div>
       </section>
 
-      <section className="py-32 px-8 2xl:px-0 mx-auto max-w-7xl">
+      <section className="py-32 px-6 2xl:px-0 mx-auto max-w-7xl">
         <div className="container space-y-10 lg:space-y-20">
           <div className="w-full grid-cols-6 gap-10 space-y-5 lg:grid lg:space-y-0">
             <h1 className="col-span-6 text-5xl font-semibold tracking-tighter lg:text-8xl tracking-responsive">

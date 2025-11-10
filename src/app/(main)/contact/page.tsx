@@ -330,7 +330,7 @@ export default function ContactPage() {
         paddingBottom: "calc(var(--header-height) + 1rem)",
       }}
     >
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-6 max-w-4xl">
         <div className="space-y-8">
           <h1 className="text-4xl font-normal text-brand-orange md:text-5xl">Contact Us</h1>
           <div className="border-b border-brand-orange/30 pb-4 min-h-[100px] flex flex-col">

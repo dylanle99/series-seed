@@ -67,7 +67,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           <header className="absolute inset-x-0 top-0 z-50">
             <nav
               aria-label="Global"
-              className="relative z-10 flex items-start justify-between p-8 px-4 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
+              className="relative z-10 flex items-start justify-between p-6 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
             >
               <div className="flex lg:flex-1">
                 <div className="-m-1.5 p-1.5">

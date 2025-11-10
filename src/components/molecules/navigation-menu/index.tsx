@@ -38,7 +38,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black overflow-hidden">
           <div className="relative h-full flex flex-col">
-            <div className="relative z-10 flex items-start justify-between p-8 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]">
+            <div className="relative z-10 flex items-start justify-between p-6 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]">
               <Logo className="size-8 lg:size-10" />
               <button
                 onClick={() => setIsOpen(false)}
@@ -49,7 +49,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
               </button>
             </div>
 
-            <nav className="relative z-10 flex-1 flex items-center px-8 md:px-16">
+            <nav className="relative z-10 flex-1 flex items-center px-6 md:px-16">
               <ul className="space-y-4 md:space-y-6">
                 {menuItems.map((item, index) => (
                   <li key={index}>
@@ -65,7 +65,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
               </ul>
             </nav>
 
-            <div className="relative z-10 flex items-end justify-between p-8 md:px-16 gap-8 flex-wrap">
+            <div className="relative z-10 flex items-end justify-between p-6 md:px-16 gap-8 flex-wrap">
               <div className="flex gap-6 flex-wrap">
                 {footerLinks.map((link, index) => (
                   <Link

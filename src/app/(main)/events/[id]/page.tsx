@@ -127,7 +127,7 @@ export default function EventPage() {
     >
       {/* Hero Section */}
       <section className="relative w-full">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-6 max-w-4xl">
           <div className="relative w-full h-96 overflow-hidden flex items-center justify-center bg-black rounded-lg">
             {event.banner_image && !bannerImageError ? (
               <Image
@@ -156,7 +156,7 @@ export default function EventPage() {
       </section>
 
       {/* Event Content */}
-      <section className="container mx-auto px-4 max-w-4xl flex flex-col space-y-20">
+      <section className="container mx-auto px-6 max-w-4xl flex flex-col space-y-20">
         <div className="space-y-6">
           {/* Event Title */}
           <h1 className="text-4xl font-normal text-brand-orange md:text-5xl">{event.title}</h1>

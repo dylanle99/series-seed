@@ -12,6 +12,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const [showPreloader, setShowPreloader] = useState(() => pathname === "/");
   const hasTriggeredRef = useRef(false);
+  const showFooter = pathname !== "/";
 
   const markPreloaderComplete = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -78,7 +79,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           </header>
           {children}
 
-          <Footer />
+          {showFooter && <Footer />}
         </div>
 
         {/* Preloader overlay that slides up to reveal content */}

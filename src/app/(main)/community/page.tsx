@@ -82,33 +82,33 @@ const eventTypes: Array<{
   imageClassName?: string;
 }> = [
   {
-    id: "roundtable-events",
-    title: "Roundtable Events",
+    id: "monthly-intimate-dinners",
+    title: "Monthly Intimate Dinners",
     description:
-      "Monthly small-group mentoring sessions with leading executives and operators tailored to each division’s needs.",
-    imageUrl: "/community/bento1.png",
-    imageClassName: "object-left",
+      "Curated small-format dinners that foster deeper connections and candid conversations among members.",
+    imageUrl: "/community/monthly-intimate-dinners.png",
   },
   {
     id: "social-evenings",
     title: "Social Evenings",
     description:
       "Quarterly gatherings that create space for members to connect, collaborate, and build long-term relationships.",
-    imageUrl: "/community/bento3.png",
+    imageUrl: "/community/social-evenings.png",
   },
   {
-    id: "monthly-intimate-dinners",
-    title: "Monthly Intimate Dinners",
+    id: "roundtable-events",
+    title: "Roundtable Events",
     description:
-      "Curated small-format dinners that foster deeper connections and candid conversations among members.",
-    imageUrl: "/community/bento2.png",
+      "Monthly small-group mentoring sessions with leading executives and operators tailored to each division’s needs.",
+    imageUrl: "/community/roundtable-events.png",
+    imageClassName: "object-left",
   },
   {
     id: "mentorship-program",
     title: "Mentorship Program",
     description:
       "One-to-one mentorship and curated sessions designed to help members learn directly from the top leaders in their fields.",
-    imageUrl: "/community/bento4.png",
+    imageUrl: "/community/mentorship-program.png",
     imageClassName: "object-left",
   },
 ];

@@ -21,8 +21,8 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
   ];
 
   const footerLinks = [
-    { label: "TERMS AND CONDITIONS", href: "/terms" },
-    { label: "PRIVACY POLICY", href: "/privacy" },
+    { label: "TERMS OF SERVICE", href: "/terms-of-service" },
+    { label: "PRIVACY POLICY", href: "/privacy-policy" },
   ];
 
   return (

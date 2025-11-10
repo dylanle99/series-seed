@@ -40,7 +40,7 @@ function EventCard({ event }: { event: Event }) {
             />
           )}
         </div>
-        <CardFooter className="flex flex-col border-t border-brand-orange/30 py-6 space-y-4">
+        <CardFooter className="flex flex-col items-start border-t border-brand-orange/30 py-6 space-y-4">
           <div className="space-y-4 text-left font-medium">
             <p className="text-sm text-brand-orange/80 uppercase">
               {EVENT_TYPE_LABELS[event.type as keyof typeof EVENT_TYPE_LABELS]}

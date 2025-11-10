@@ -56,7 +56,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-orange font-extrabold uppercase leading-[0.8] tracking-[-0.03em] hover:underline"
+                      className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-orange font-semibold uppercase leading-[0.8] tracking-[-0.03em] hover:underline"
                     >
                       {item.label}
                     </Link>
@@ -72,7 +72,7 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
                     key={index}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-brand-orange text-xs tracking-wider hover:opacity-70 transition-opacity hover:underline"
+                    className="text-brand-orange text-xs tracking-wider hover:opacity-70 transition-opacity hover:underline text-medium"
                   >
                     {link.label}
                   </Link>

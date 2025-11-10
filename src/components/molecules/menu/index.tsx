@@ -43,7 +43,7 @@ export default function Menu() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-sm font-bold uppercase text-white"
+            className="text-sm font-semibold uppercase text-white"
           >
             {isOpen ? "Close" : "Menu"}
           </button>
@@ -58,7 +58,7 @@ export default function Menu() {
                   key={index}
                 >
                   <div className="flex items-start">
-                    <span className="text-4xl font-extrabold uppercase leading-[0.8] tracking-[-0.03em]">
+                    <span className="text-4xl font-semibold uppercase leading-[0.8] tracking-[-0.03em]">
                       {item.name}
                     </span>
                   </div>

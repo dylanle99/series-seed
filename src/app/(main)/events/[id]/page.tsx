@@ -193,7 +193,7 @@ export default function EventPage() {
         {/* Mentors Section */}
         {isMentorsLoading ? (
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-brand-orange">Speakers</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-brand-orange">Speakers</h2>
             <p className="text-brand-orange/70">Loading speakers...</p>
           </div>
         ) : mentors && mentors.length > 0 ? (

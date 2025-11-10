@@ -159,7 +159,7 @@ function CategoryCard({
 
       {/* Content */}
       <div className="relative flex h-full items-center justify-center p-6">
-        <h2 className="text-center text-2xl md:text-3xl font-bold text-brand-orange text-balance leading-tight tracking-responsive">
+        <h2 className="text-center text-2xl md:text-3xl font-semibold text-brand-orange text-balance leading-tight tracking-responsive">
           {title}
         </h2>
       </div>
@@ -261,7 +261,7 @@ export default function CommunityPage() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex h-full items-center justify-center">
-          <h1 className="text-[9vw] font-extrabold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive">
+          <h1 className="text-[9vw] font-semibold uppercase leading-[0.8] tracking-[-0.03em] text-brand-orange tracking-responsive">
             Community
           </h1>
         </div>

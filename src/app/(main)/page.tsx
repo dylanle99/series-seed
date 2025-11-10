@@ -12,7 +12,7 @@ export default function MainPage() {
           <div className="text-center text-brand-orange">
             <h1 className="text-center text-[7vw] font-semibold uppercase leading-[0.9] tracking-[-0.06em]">
               <span className="block">Nurture leaders</span>
-              <span className="block">of tomorrow</span>
+              <span className="block">of tomorrow.</span>
             </h1>
           </div>
         </div>

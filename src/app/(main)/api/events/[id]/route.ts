@@ -22,7 +22,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         in_person_location,
         virtual_location,
         description,
-        banner_image
+        banner_image,
+        schedule
         `
     )
     .eq("id", id)

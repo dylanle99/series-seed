@@ -1,3 +1,9 @@
+export interface Schedule {
+  start_hour: string;
+  title: string;
+  description: string[];
+}
+
 export interface Event {
   id: string;
   created_at: string;
@@ -9,5 +15,6 @@ export interface Event {
   description: string | null;
   banner_image: string | null;
   updated_at: string | null;
+  schedule: Schedule[] | null;
 }
 

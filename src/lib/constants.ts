@@ -9,6 +9,7 @@ export const EVENT_TYPE_LABELS = {
   retail: "Retail",
   raw_materials: "Raw Materials",
   finance: "Finance",
+  real_estate: "Real Estate",
 };
 
 export type IndustryCategory = {

@@ -1,0 +1,168 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { X, Linkedin, Instagram } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import MenuButton from "./menu-button";
+import Logo from "../logo";
+
+type NavigationMenuProps = {
+  placement?: "inline" | "fixed";
+};
+
+export default function NavigationMenu({ placement = "fixed" }: NavigationMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuItems = [
+    { label: "Vision", href: "/vision" },
+    { label: "Community", href: "/community" },
+    { label: "Events", href: "/events" },
+    { label: "Contact", href: "/contact" },
+  ];
+
+  const footerLinks = [
+    { label: "TERMS OF SERVICE", href: "/terms-of-service" },
+    { label: "PRIVACY POLICY", href: "/privacy-policy" },
+  ];
+
+  return (
+    <>
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+          >
+            <MenuButton
+              onClick={() => setIsOpen(true)}
+              variant={placement === "inline" ? "inline" : "fixed"}
+              ariaLabel="Open menu"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="relative h-full flex flex-col">
+              <motion.div
+                className="relative z-10 flex items-start justify-between p-6 md:px-16 [word-spacing:-0.05em] md:[word-spacing:normal]"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+              >
+                <div onClick={() => setIsOpen(false)}>
+                  <Logo className="size-8 lg:size-10" />
+                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex flex-col gap-1 hover:opacity-70 transition-opacity cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6 lg:w-8 lg:h-8 text-brand-orange" />
+                </button>
+              </motion.div>
+
+              <nav className="relative z-10 flex-1 flex items-center px-6 md:px-16">
+                <ul className="space-y-4 md:space-y-6">
+                  {menuItems.map((item, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.3, delay: 0.1 + index * 0.1 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-brand-orange hover:text-brand-orange/80 font-semibold uppercase leading-[0.8] tracking-[-0.03em]"
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+
+              <motion.div
+                className="relative z-10 flex items-end justify-between p-6 md:px-16 gap-8 flex-wrap"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: 0.5 }}
+              >
+                <div className="flex gap-6 flex-wrap">
+                  {footerLinks.map((link, index) => (
+                    <Link
+                      key={index}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-brand-orange text-xs tracking-wider hover:opacity-70 transition-opacity hover:underline text-medium"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="flex gap-4">
+                  <Link
+                    href="https://instagram.com/seriesseed"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-orange hover:opacity-70 transition-opacity"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </Link>
+                  <Link
+                    href="https://www.tiktok.com/@seriesseed"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-orange hover:opacity-70 transition-opacity"
+                    aria-label="TikTok"
+                  >
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                    </svg>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="pointer-events-none absolute -top-20 right-0 w-[27rem] max-w-xl"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                <div className="relative w-full">
+                  <img
+                    src="/menu/bg-image.png"
+                    className="w-full rounded-2xl object-cover"
+                    alt=""
+                  />
+                  <div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/95 via-black/70 to-transparent"
+                    aria-hidden="true"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

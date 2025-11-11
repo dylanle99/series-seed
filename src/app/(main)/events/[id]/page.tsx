@@ -1,0 +1,227 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import useSWR from "swr";
+import { Calendar, MapPin, ArrowLeft } from "lucide-react";
+import { Jelly } from "ldrs/react";
+import "ldrs/react/Jelly.css";
+import { Event, Mentor } from "@/types/schema";
+import { getValidImageUrl } from "@/lib/helpers";
+import { EVENT_TYPE_LABELS } from "@/lib/constants";
+import { fetcher } from "@/lib/mutations";
+import { Button } from "@/components/atomic/button";
+
+export default function EventPage() {
+  const params = useParams();
+  const id = params.id as string;
+  const router = useRouter();
+
+  // Fetch event data using SWR
+  const {
+    data: event,
+    error: eventError,
+    isLoading: isEventLoading,
+  } = useSWR<Event>(id ? `/api/events/${id}` : null, fetcher);
+
+  // Fetch mentors data using SWR
+  const {
+    data: mentors,
+    error: mentorsError,
+    isLoading: isMentorsLoading,
+  } = useSWR<Mentor[]>(id ? `/api/events/${id}/mentors` : null, fetcher);
+
+  if (isEventLoading) {
+    return (
+      <div className="min-h-screen bg-black text-brand-orange flex items-center justify-center">
+        <Jelly size="40" speed="0.9" color="#ff4f00" />
+      </div>
+    );
+  }
+
+  if (eventError || !event) {
+    return (
+      <div className="min-h-screen bg-black text-brand-orange flex flex-col items-center justify-center gap-4">
+        <p className="text-lg text-red-500">Error loading event. Please try again later.</p>
+        <Link href="/events" className="text-brand-orange hover:underline flex items-center gap-2">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Events
+        </Link>
+      </div>
+    );
+  }
+
+  const eventDate = event.occured_at ? new Date(event.occured_at) : null;
+  const location = event.in_person_location || event.virtual_location || "Location TBA";
+  const isPastEvent = eventDate ? eventDate.getTime() < Date.now() : false;
+
+  const formattedDate = eventDate
+    ? eventDate.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    : "Date TBA";
+
+  // Debug: Log the banner image URL
+  console.log("Event banner_image:", event.banner_image);
+  console.log("Banner image after getValidImageUrl:", getValidImageUrl(event.banner_image));
+  return (
+    <div
+      className="min-h-screen bg-black text-brand-orange space-y-8"
+      style={{
+        paddingTop: "calc(var(--header-height) + 1rem)",
+        paddingBottom: "calc(var(--header-height) + 1rem)",
+      }}
+    >
+      {/* Hero Section */}
+      <section className="relative w-full">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="relative w-full h-96 overflow-hidden flex items-center justify-center bg-black rounded-lg">
+            {event.banner_image ? (
+              <Image
+                src={getValidImageUrl(event.banner_image)}
+                alt={event.title}
+                fill
+                className="object-cover rounded-lg"
+                unoptimized
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center gap-4">
+                <Image
+                  src="/logo/series-seed.svg"
+                  alt={event.title}
+                  width={300}
+                  height={300}
+                  className="object-contain"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Event Content */}
+      <section className="container mx-auto px-6 max-w-4xl flex flex-col space-y-20">
+        <div className="space-y-6">
+          {/* Event Title */}
+          <h1 className="text-4xl font-normal text-brand-orange md:text-5xl">{event.title}</h1>
+          {/* Event Details */}
+          <div className="flex flex-wrap gap-6 text-sm">
+            <div className="flex items-center gap-2 text-brand-orange/80">
+              <Calendar className="w-4 h-4" />
+              <span>{formattedDate}</span>
+            </div>
+            <div className="flex items-center gap-2 text-brand-orange/80">
+              <MapPin className="w-4 h-4" />
+              <span>{location}</span>
+            </div>
+          </div>
+
+          {/* Past Event Callout */}
+          {isPastEvent && (
+            <div className="w-full">
+              <div className="w-full rounded-2xl bg-black border border-brand-orange/20 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                  <div className="text-lg font-medium text-brand-orange md:text-xl">
+                    This event is over.
+                  </div>
+                  <p className="text-brand-orange/60 mt-2">We hope to see you at the next event!</p>
+                </div>
+                <Button
+                  variant="default"
+                  className="rounded-lg bg-brand-orange hover:bg-brand-orange/90 text-black cursor-pointer"
+                  onClick={() => router.push("/events")}
+                >
+                  Explore Upcoming Events
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Event Type Badge */}
+          {event.type && (
+            <div>
+              <span className="inline-flex items-center rounded-full bg-brand-orange/10 px-2 py-1 text-xs font-medium text-brand-orange inset-ring inset-ring-brand-orange/10">
+                {EVENT_TYPE_LABELS[event.type as keyof typeof EVENT_TYPE_LABELS]}
+              </span>
+            </div>
+          )}
+          {/* Description */}
+          {event.description && (
+            <div className="space-y-4">
+              <h2 className="text-2xl font-medium text-brand-orange md:text-3xl">About</h2>
+              <div className="text-brand-orange/80 leading-relaxed whitespace-pre-wrap">
+                {event.description}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Mentors Section */}
+        {isMentorsLoading ? (
+          <div>
+            <h2 className="text-2xl font-semibold mb-6 text-brand-orange">Speakers</h2>
+            <Jelly size="40" speed="0.9" color="#ff4f00" />
+          </div>
+        ) : mentors && mentors.length > 0 ? (
+          <div>
+            {mentors.map((mentor) => {
+              const fullName = `${mentor.first_name || ""} ${mentor.last_name || ""}`.trim();
+              const currentExperience =
+                mentor.experiences?.find((exp) => exp.current) || mentor.experiences?.[0];
+              const currentRole = currentExperience?.title || "";
+              const currentCompany = currentExperience?.company || "";
+
+              return (
+                <div
+                  key={mentor.id}
+                  className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16"
+                >
+                  {/* Left column - Text content */}
+                  <div className="max-w-3xl space-y-4">
+                    <span className="inline-flex items-center rounded-full bg-brand-orange/10 px-2 py-1 text-xs font-medium text-brand-orange inset-ring inset-ring-brand-orange/10">
+                      Speaker
+                    </span>
+
+                    <img
+                      src={getValidImageUrl(mentor.image_url)}
+                      alt={fullName}
+                      className="w-24 h-24 rounded-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = "/logo/series-seed.svg";
+                      }}
+                    />
+
+                    <h2 className="text-2xl font-medium text-brand-orange md:text-3xl">
+                      {fullName}
+                    </h2>
+
+                    {currentRole && currentCompany && (
+                      <p className="text-xl text-brand-orange/70 leading-relaxed">
+                        {currentRole} <span className="italic">at</span>{" "}
+                        <span className="font-semibold text-brand-orange">{currentCompany}</span>
+                      </p>
+                    )}
+
+                    {/* Bio */}
+                    {mentor.bio && (
+                      <div
+                        className="space-y-4 text-brand-orange/80 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: mentor.bio }}
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+      </section>
+    </div>
+  );
+}

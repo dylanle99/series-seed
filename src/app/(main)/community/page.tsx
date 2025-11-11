@@ -75,12 +75,36 @@ type ColumnProps = {
 const Column = ({ images, y }: ColumnProps) => {
   return (
     <motion.div
-      className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]"
-      style={{ y }}
+      className="relative -top-[45%] flex h-full w-1/2 md:w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]"
+      style={{
+        y,
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+      }}
     >
       {images.map((src, i) => (
-        <div key={i} className="relative h-full w-full overflow-hidden">
-          <img src={`${src}`} alt="image" className="pointer-events-none object-cover" />
+        <div
+          key={i}
+          className="relative h-full w-full overflow-hidden"
+          style={{
+            willChange: "transform",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+          }}
+        >
+          <img
+            src={`${src}`}
+            alt="image"
+            className="pointer-events-none object-cover w-full h-full"
+            loading="lazy"
+            decoding="async"
+            style={{
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+          />
         </div>
       ))}
     </motion.div>
@@ -90,6 +114,8 @@ const Column = ({ images, y }: ColumnProps) => {
 const Skiper30 = () => {
   const gallery = useRef<HTMLDivElement>(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const lenisRef = useRef<Lenis | null>(null);
+  const rafRef = useRef<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: gallery,
@@ -103,23 +129,65 @@ const Skiper30 = () => {
   const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+    });
+    lenisRef.current = lenis;
 
     const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafRef.current = requestAnimationFrame(raf);
+    };
+
+    // Use a stable height calculation that doesn't change with mobile browser UI
+    const getStableHeight = () => {
+      // Use document.documentElement.clientHeight for more stable measurement
+      // or use a fixed value based on initial measurement
+      return Math.max(
+        window.innerHeight,
+        document.documentElement.clientHeight,
+        window.screen.height * 0.5 // Fallback to screen height
+      );
     };
 
     const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
+      // Throttle resize events to prevent excessive updates
+      const stableHeight = getStableHeight();
+      setDimension({
+        width: window.innerWidth,
+        height: stableHeight,
+      });
     };
 
-    window.addEventListener("resize", resize);
-    requestAnimationFrame(raf);
+    // Debounce resize handler
+    let resizeTimeout: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 150);
+    };
+
+    window.addEventListener("resize", debouncedResize, { passive: true });
+    window.addEventListener("orientationchange", debouncedResize, { passive: true });
+
+    rafRef.current = requestAnimationFrame(raf);
     resize();
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", debouncedResize);
+      window.removeEventListener("orientationchange", debouncedResize);
+      clearTimeout(resizeTimeout);
+
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
     };
   }, []);
 
@@ -127,7 +195,11 @@ const Skiper30 = () => {
     <main className="w-full bg-black text-brand-orange">
       <div
         ref={gallery}
-        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
+        className="relative box-border flex flex-col md:flex-row h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
+        style={{
+          willChange: "scroll-position",
+          WebkitOverflowScrolling: "touch",
+        }}
       >
         <Column images={[galleryImages[0], galleryImages[1], galleryImages[2]]} y={y} />
         <Column images={[galleryImages[3], galleryImages[4], galleryImages[5]]} y={y2} />

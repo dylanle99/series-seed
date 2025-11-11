@@ -8,7 +8,8 @@ import { EventTypesCarousel } from "./event-types";
 import { industryCategories, eventTypes } from "@/lib/constants";
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState, useMemo } from "react";
+import Lenis from "lenis";
+import { useEffect, useRef, useState } from "react";
 
 const galleryImages = Array.from({ length: 12 }, (_, i) => `/community/gallery/${i + 1}.png`);
 
@@ -74,21 +75,12 @@ type ColumnProps = {
 const Column = ({ images, y }: ColumnProps) => {
   return (
     <motion.div
-      className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%] will-change-transform transform-gpu"
+      className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] [&:nth-child(2)]:top-[-95%] [&:nth-child(3)]:top-[-45%] [&:nth-child(4)]:top-[-75%]"
       style={{ y }}
     >
       {images.map((src, i) => (
-        <div
-          key={i}
-          className="relative h-full w-full overflow-hidden will-change-transform transform-gpu"
-        >
-          <img
-            src={`${src}`}
-            alt="image"
-            className="pointer-events-none object-cover will-change-transform transform-gpu"
-            loading="lazy"
-            decoding="async"
-          />
+        <div key={i} className="relative h-full w-full overflow-hidden">
+          <img src={`${src}`} alt="image" className="pointer-events-none object-cover" />
         </div>
       ))}
     </motion.div>
@@ -104,47 +96,30 @@ const Skiper30 = () => {
     offset: ["start end", "end start"],
   });
 
-  const { height, width } = dimension;
-  const isMobile = useMemo(() => width <= 768, [width]);
-  // Reduce parallax strength on mobile to minimize jank
-  const strength = isMobile ? 1 : 2;
-  const y = useTransform(scrollYProgress, [0, 1], [0, height * strength]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * (isMobile ? 1.65 : 3.3)]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * (isMobile ? 0.7 : 1.25)]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * (isMobile ? 1.5 : 3)]);
+  const { height } = dimension;
+  const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
 
   useEffect(() => {
-    const updateSize = () => {
-      const current = gallery.current;
-      if (!current) {
-        setDimension({ width: window.innerWidth, height: window.innerHeight });
-        return;
-      }
-      // Use the element's height to avoid mobile address bar resize jitter
-      setDimension({
-        width: window.innerWidth,
-        height: current.getBoundingClientRect().height || window.innerHeight,
-      });
+    const lenis = new Lenis();
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     };
 
-    // Observe only the gallery container instead of window resize to avoid frequent reflows on mobile
-    const ro = new ResizeObserver(() => {
-      // Throttle via rAF
-      requestAnimationFrame(updateSize);
-    });
-    if (gallery.current) {
-      ro.observe(gallery.current);
-    }
-    // Orientation change can significantly affect viewport
-    const onOrientation = () => requestAnimationFrame(updateSize);
-    window.addEventListener("orientationchange", onOrientation, { passive: true });
+    const resize = () => {
+      setDimension({ width: window.innerWidth, height: window.innerHeight });
+    };
 
-    // Initial measurement
-    updateSize();
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(raf);
+    resize();
 
     return () => {
-      ro.disconnect();
-      window.removeEventListener("orientationchange", onOrientation);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
@@ -152,7 +127,7 @@ const Skiper30 = () => {
     <main className="w-full bg-black text-brand-orange">
       <div
         ref={gallery}
-        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw] will-change-transform transform-gpu"
+        className="relative box-border flex h-[175vh] gap-[2vw] overflow-hidden bg-black p-[2vw]"
       >
         <Column images={[galleryImages[0], galleryImages[1], galleryImages[2]]} y={y} />
         <Column images={[galleryImages[3], galleryImages[4], galleryImages[5]]} y={y2} />

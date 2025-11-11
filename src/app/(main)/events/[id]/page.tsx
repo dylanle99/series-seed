@@ -5,63 +5,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
-import { Calendar, MapPin, ArrowLeft, Check } from "lucide-react";
+import { Calendar, MapPin, ArrowLeft } from "lucide-react";
 import { Jelly } from "ldrs/react";
 import "ldrs/react/Jelly.css";
 import { Event, Mentor } from "@/types/schema";
 import { getValidImageUrl } from "@/lib/helpers";
 import { EVENT_TYPE_LABELS } from "@/lib/constants";
 import { fetcher } from "@/lib/mutations";
-
-const MILESTONES = [
-  {
-    start_hour: "6:00 PM",
-    title: "Opening",
-    description: ["Welcome remarks", "Speaker introduction"],
-  },
-  {
-    start_hour: "6:15 PM",
-    title: "Keynote Speaker",
-    description: ["Career journey", "Industry insights", "Key topics discussion"],
-  },
-  {
-    start_hour: "7:00 PM",
-    title: "Live Q&A & Closing",
-    description: ["Audience questions", "Closing remarks"],
-  },
-];
-
-function EventSchedule() {
-  return (
-    <div className="grid grid-cols-1 gap-8 overflow-hidden md:grid-cols-2 lg:grid-cols-3 pt-4 md:pt-8">
-      {MILESTONES.map((item) => (
-        <div key={item.title} className="space-y-4">
-          <div className="flex items-center text-sm/6 font-semibold text-brand-orange">
-            <svg viewBox="0 0 4 4" aria-hidden="true" className="mr-4 size-1 flex-none">
-              <circle r={2} cx={2} cy={2} fill="currentColor" />
-            </svg>
-            {item.start_hour}
-            <div
-              aria-hidden="true"
-              className="absolute -ml-2 h-0.5 w-screen -translate-x-full bg-brand-orange/40 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0"
-            />
-          </div>
-          <div>
-            <p className="text-lg/8 font-semibold tracking-tight text-brand-orange">{item.title}</p>
-            <ul className="mt-2 text-base/7 text-brand-orange/70 space-y-1">
-              {item.description.map((point, index) => (
-                <li key={index} className="flex items-center tracking-tight">
-                  <Check className="h-4 w-4 mr-2 text-sm text-brand-orange/60" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function EventPage() {
   const params = useParams();
@@ -251,11 +201,6 @@ export default function EventPage() {
             })}
           </div>
         ) : null}
-
-        <div>
-          <h2 className="text-2xl font-medium text-brand-orange md:text-3xl">Event Details</h2>
-          <EventSchedule />
-        </div>
       </section>
     </div>
   );

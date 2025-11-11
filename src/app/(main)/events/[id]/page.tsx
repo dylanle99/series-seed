@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import useSWR from "swr";
 import { Calendar, MapPin, ArrowLeft } from "lucide-react";
 import { Jelly } from "ldrs/react";
@@ -12,11 +11,12 @@ import { Event, Mentor } from "@/types/schema";
 import { getValidImageUrl } from "@/lib/helpers";
 import { EVENT_TYPE_LABELS } from "@/lib/constants";
 import { fetcher } from "@/lib/mutations";
+import { Button } from "@/components/atomic/button";
 
 export default function EventPage() {
   const params = useParams();
   const id = params.id as string;
-  const [bannerImageError, setBannerImageError] = useState(false);
+  const router = useRouter();
 
   // Fetch event data using SWR
   const {
@@ -54,6 +54,7 @@ export default function EventPage() {
 
   const eventDate = event.occured_at ? new Date(event.occured_at) : null;
   const location = event.in_person_location || event.virtual_location || "Location TBA";
+  const isPastEvent = eventDate ? eventDate.getTime() < Date.now() : false;
 
   const formattedDate = eventDate
     ? eventDate.toLocaleDateString("en-US", {
@@ -81,7 +82,7 @@ export default function EventPage() {
       <section className="relative w-full">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="relative w-full h-96 overflow-hidden flex items-center justify-center bg-black rounded-lg">
-            {event.banner_image && !bannerImageError ? (
+            {event.banner_image ? (
               <Image
                 src={getValidImageUrl(event.banner_image)}
                 alt={event.title}
@@ -98,9 +99,6 @@ export default function EventPage() {
                   height={300}
                   className="object-contain"
                 />
-                {event.banner_image && bannerImageError && (
-                  <p className="text-xs text-brand-orange/50">Banner image unavailable</p>
-                )}
               </div>
             )}
           </div>
@@ -123,6 +121,28 @@ export default function EventPage() {
               <span>{location}</span>
             </div>
           </div>
+
+          {/* Past Event Callout */}
+          {isPastEvent && (
+            <div className="w-full">
+              <div className="w-full rounded-2xl bg-black border border-brand-orange/20 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                  <div className="text-lg font-medium text-brand-orange md:text-xl">
+                    This event is over.
+                  </div>
+                  <p className="text-brand-orange/60 mt-2">We hope to see you at the next event!</p>
+                </div>
+                <Button
+                  variant="default"
+                  className="rounded-lg bg-brand-orange hover:bg-brand-orange/90 text-black cursor-pointer"
+                  onClick={() => router.push("/events")}
+                >
+                  Explore Upcoming Events
+                </Button>
+              </div>
+            </div>
+          )}
+
           {/* Event Type Badge */}
           {event.type && (
             <div>

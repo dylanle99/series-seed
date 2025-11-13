@@ -176,6 +176,7 @@ export default function EventPage() {
                 mentor.experiences?.find((exp) => exp.current) || mentor.experiences?.[0];
               const currentRole = currentExperience?.title || "";
               const currentCompany = currentExperience?.company || "";
+              const mentorImageUrl = getValidImageUrl(mentor.image_url);
 
               return (
                 <div
@@ -188,13 +189,13 @@ export default function EventPage() {
                       Speaker
                     </span>
 
-                    <img
-                      src={getValidImageUrl(mentor.image_url)}
+                    <Image
+                      src={mentorImageUrl || "/logo/series-seed.svg"}
                       alt={fullName}
+                      width={96}
+                      height={96}
                       className="w-24 h-24 rounded-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = "/logo/series-seed.svg";
-                      }}
+                      unoptimized
                     />
 
                     <h2 className="text-2xl font-medium text-brand-orange md:text-3xl">

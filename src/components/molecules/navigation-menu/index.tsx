@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { X, Linkedin, Instagram } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import MenuButton from "./menu-button";
@@ -147,14 +148,15 @@ export default function NavigationMenu({ placement = "fixed" }: NavigationMenuPr
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: 0.2 }}
               >
-                <div className="relative w-full">
-                  <img
+                <div className="relative w-full h-screen">
+                  <Image
                     src="/menu/bg-image.png"
-                    className="w-full rounded-2xl object-cover"
+                    fill
+                    className="rounded-2xl object-cover"
                     alt=""
                   />
                   <div
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/95 via-black/70 to-transparent"
+                    className="absolute inset-0 rounded-2xl bg-linear-to-t from-black/95 via-black/70 to-transparent"
                     aria-hidden="true"
                   />
                 </div>

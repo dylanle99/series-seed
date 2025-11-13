@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
 import { useEffect, useRef, useState } from "react";
@@ -84,7 +85,7 @@ const Column = ({ images, y }: ColumnProps) => {
     >
       {images.map((src, i) => (
         <div key={i} className="relative h-full w-full overflow-hidden">
-          <img src={`${src}`} alt="image" className="pointer-events-none object-cover" />
+          <Image src={src} alt="image" fill className="pointer-events-none object-cover" />
         </div>
       ))}
     </motion.div>

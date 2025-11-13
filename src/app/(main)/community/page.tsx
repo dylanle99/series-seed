@@ -80,7 +80,7 @@ const Column = ({ images, y }: ColumnProps) => {
     >
       {images.map((src, i) => (
         <div key={i} className="relative h-full w-full overflow-hidden">
-          <img src={`${src}`} alt="image" className="pointer-events-none object-cover" />
+          <Image src={src} alt="image" fill className="pointer-events-none object-cover" />
         </div>
       ))}
     </motion.div>
@@ -154,7 +154,7 @@ export default function CommunityPage() {
           />
           <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
           <div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80"
+            className="absolute inset-0 bg-linear-to-b from-transparent via-black/40 to-black/80"
             aria-hidden="true"
           />
         </div>
